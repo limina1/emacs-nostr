@@ -1,0 +1,212 @@
+#+title: Nostr Emacs Client
+
+* Nostr Emacs Client [ALPHA]
+:PROPERTIES:
+:ID: nostr-emacs-overview
+:END:
+
+An Emacs client for the Nostr protocol, focusing on text-centric content creation and document publishing.
+
+** Project Status
+:PROPERTIES:
+:ID: project-status
+:END:
+
+
+*** Completed Features [4/8]
+- [X] jq-wrapper
+- [X] nak-wrapper
+- [X] Profile Management
+- [X] Key Storage System
+- [X] Prelimenary event publishing
+
+- [ ] AsciiDoc Publication (NIP-62)
+- [ ] Timeline View
+- [ ] Relay Management Interface
+- [ ] Content Creation Tools
+
+** Installation
+:PROPERTIES:
+:ID: installation
+:END:
+
+*** Prerequisites
+- Emacs 27.1 or later
+- [[https://github.com/fiatjaf/nak][nak]] command-line tool
+- jq for JSON processing
+
+*** Development Installation
+#+BEGIN_SRC shell
+# Clone repository
+git clone https://github.com/yourusername/nostr-emacs.git
+cd nostr-emacs
+
+# For Doom Emacs users
+ln -s $PWD $HOME/.doom.d/modules/tools/nostr-emacs
+#+END_SRC
+
+*** Configuration
+Add to =packages.el=:
+#+BEGIN_SRC emacs-lisp
+(package! nostr
+  :recipe (:host github
+           :repo "yourusername/nostr-emacs"
+           :files ("*.el"
+                  "src/content/*.el"
+                  "src/core/*.el"
+                  "src/identity/*.el"
+                  "src/network/*.el"
+                  "src/ui/*.el"
+                  "src/util/*.el")))
+#+END_SRC
+
+Add to =config.el=:
+#+BEGIN_SRC emacs-lisp
+(use-package nostr
+  :init
+  (nostr-initialize)
+  :config
+  (setq nostr-profile-dir "~/.nostr/profiles"))
+#+END_SRC
+
+** Architecture
+:PROPERTIES:
+:ID: architecture
+:END:
+
+The client is organized into functional modules:
+
+*** Core System Components
+#+BEGIN_SRC text
+src/
+├── core/               # Protocol implementation
+├── network/           # Relay communication
+├── content/           # Content management
+├── identity/          # Profile & key management
+├── ui/                # User interface
+└── util/              # Support functions
+#+END_SRC
+
+*** Component Overview
+
+**** Core Module
+- Protocol implementation (NIP-01)
+- Event validation
+- Data structures
+- State management
+
+**** Network Module
+- Relay connection handling
+- WebSocket management
+- Request coordination
+- Error recovery
+
+**** Content Module
+- Document processing
+- AsciiDoc integration (NIP-62)
+- Publication workflow
+- Content validation
+
+**** Identity Module
+- Key management
+- Profile handling
+- Authentication
+- Contact management
+
+** Development
+:PROPERTIES:
+:ID: development
+:END:
+
+*** Building from Source
+#+BEGIN_SRC shell
+git clone https://github.com/yourusername/nostr-emacs.git
+cd nostr-emacs
+make build
+#+END_SRC
+
+*** Running Tests
+#+BEGIN_SRC shell
+make test
+#+END_SRC
+
+*** Documentation
+Generate documentation:
+#+BEGIN_SRC shell
+make docs
+#+END_SRC
+
+** Usage
+:PROPERTIES:
+:ID: usage
+:END:
+
+*** Basic Operations
+#+BEGIN_SRC emacs-lisp
+;; Initialize client
+M-x nostr-initialize
+
+;; Create new profile
+M-x nostr-create-new-profile
+
+;; Login with existing profile
+M-x nostr-login-with-key
+#+END_SRC
+
+*** Publishing Documents
+#+BEGIN_SRC emacs-lisp
+;; Open an AsciiDoc file
+C-x C-f document.adoc
+
+;; Publish to Nostr
+M-x nostr-publish-buffer
+#+END_SRC
+
+** Contributing
+:PROPERTIES:
+:ID: contributing
+:END:
+
+1. Fork the repository
+2. Create your feature branch
+3. Implement your changes
+4. Add tests for new functionality
+5. Submit a pull request
+
+*** Coding Standards
+- Use lexical binding
+- Follow Emacs Lisp conventions
+- Add documentation strings
+- Maintain test coverage
+
+** License
+:PROPERTIES:
+:ID: license
+:END:
+
+This project is licensed under the GPL-3.0 License - see the LICENSE file for details.
+
+** Acknowledgments
+:PROPERTIES:
+:ID: acknowledgments
+:END:
+
+- NAK developers
+- Nostr protocol contributors
+- Emacs community
+
+** Support
+:PROPERTIES:
+:ID: support
+:END:
+
+For support, please:
+1. Check existing issues
+2. Review documentation
+3. Open a new issue if needed
+
+Include your:
+- Emacs version
+- nostr-emacs version
+- Error messages
+- Steps to reproduce
